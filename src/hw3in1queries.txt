@@ -1,0 +1,6 @@
+GetEventsBySport Archery
+GetEventsBySport Rowing
+GetWinnersAndCountriesBySportAndEvent Archery Mens_individual
+GetWinnersAndCountriesBySportAndEvent Rowing Womens_single_sculls
+GetGoldMedalistAndCountryBySportAndEvent Archery Womens_individual
+GetGoldMedalistAndCountryBySportAndEvent Rowing Mens_single_sculls

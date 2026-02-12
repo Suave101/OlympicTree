@@ -1,0 +1,7 @@
+2024 Archery Rowing
+Archery Mens_individual Womens_individual
+Rowing Mens_single_sculls Womens_single_sculls
+Mens_individual Woojin_Kim:Korea Brady_Ellison:USA Wooseok_Lee:Korea
+Womens_individual Sihyeon_Lim:Korea Suhyeon_Nam:Korea Lisa_Barbelin:France
+Mens_single_sculls Oliver_Zeidler:Germany Yauheni_Zalaty:AIN Simon_Van_Dorp:Netherlands
+Womens_single_sculls Karolien_Florijn:Netherlands Emma_Twigg:New_Zealand Viktorija_Senkute:Lithuania
