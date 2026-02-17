@@ -7,12 +7,13 @@
   Description of this file: A class for tree nodes that have children and a parent
 
  */
+import java.util.ArrayList;
 import java.util.List;
 
 /*
  * A class for tree nodes that have children and a parent
  */
-class TreeNode {
+public class TreeNode {
     // The parent node
     private TreeNode parent;
 
@@ -20,15 +21,27 @@ class TreeNode {
     private String data;
 
     // The children of the node
-    private List<TreeNode> children;
+    private ArrayList<TreeNode> children;
+
+    // Depth of the node
+    private int depth = 0;
 
     /*
      * Defines the node and stores the data and pointers
      */
-    public TreeNode(TreeNode parent, String data, List<TreeNode> children) {
+    public TreeNode(TreeNode parent, String data, ArrayList<TreeNode> children) {
+        // Set the values to the given values
         this.parent = parent;
         this.data = data;
         this.children = children;
+
+        // Set the depth if there is a parent node
+        if (this.parent != null) {
+            this.depth = parent.depth + 1;
+        }
+        if (this.children == null) {
+            this.children = new ArrayList<>();
+        }
     }
 
     /*
@@ -76,7 +89,7 @@ class TreeNode {
     /*
      * Setter method for TreeNode children
      */
-    public void setChildren(List<TreeNode> children) {
+    public void setChildren(ArrayList<TreeNode> children) {
         this.children = children;
     }
 
@@ -85,5 +98,23 @@ class TreeNode {
      */
     public void setParent(TreeNode parent) {
         this.parent = parent;
+        this.depth = parent.depth + 1;
+    }
+
+    /*
+     * Getter method for TreeNode depth
+     */
+    public int getDepth() {
+        return this.depth;
+    }
+
+    /*
+     * Recursively prints tree with current node as root
+     */
+    public void printTree() {
+        System.out.println(this.data);
+        for (TreeNode child: this.getChildren()) {
+            child.printTree();
+        }
     }
 }
