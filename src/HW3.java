@@ -226,8 +226,68 @@ public class HW3
      * Method that prints the athlete with the most metals
      */
     public static void getAthleteWithMostMedals(TreeNode root) {
+        // Get Sports
+        List<TreeNode> sports = root.getChildren();
+
+        // Create a map var with the node and the number of occurrences
+        Map<String, Integer> athleteMap = new HashMap<>();
+
+        // Get all athlete nodes and map them to the number of times they occur
+        for (TreeNode sport: sports) {
+            for (TreeNode event: sport.getChildren()) {
+                for (TreeNode athlete: event.getChildren()) {
+                    // Get athlete name
+                    String athleteStr = athlete.getData();
+                    // If athlete isn't mapped yet, add the athlete to the map
+                    if (!athleteMap.containsKey(athleteStr)) {
+                        athleteMap.put(athleteStr, 1);
+                    } else {
+                        // Else, increment the athlete's metal count
+                        athleteMap.put(athleteStr, athleteMap.get(athleteStr) + 1);
+                    }
+                }
+            }
+        }
+
+        // Most metals storage var
+        int mostMetals = -1;
+
+        // List of best athletes
+        ArrayList<String> bestAthletes = new ArrayList<>();
+
+        // For each athlete, find the one with the most metals
+        for (String athlete: athleteMap.keySet()) {
+            // Store the athletes number of metals
+            int numberOfMetals = athleteMap.get(athlete);
+
+            // If the athlete has more metals, empty the best athletes and add this athlete
+            if (numberOfMetals > mostMetals) {
+                bestAthletes.clear();
+                bestAthletes.add(athlete);
+                mostMetals = numberOfMetals;
+            } else if (numberOfMetals == mostMetals) {
+                // If athlete ties, add the athlete to the bestAthletes lexiographically
+                bestAthletes.add(binaryIndexSearch(bestAthletes, athlete), athlete);
+            }
+            // If not better or equal, do nothing
+        }
+
+        // Parse the strings
+
+        // String to store the athlete and country list
+        String bestAthleteString = "";
+
+        // Iterate through athletes and add them to the string
+        for (String athlete: bestAthletes) {
+            // Split the string at the colon
+            String[] athleteCountryPair = athlete.split(":");
+
+            // Concat the string such that it matches the output requirement conventions :)
+            bestAthleteString = bestAthleteString + " " + athleteCountryPair[0];
+        }
+
         // GetAthleteWithMostMedals numberOfMedals athlete [athlete2 ... in alphabetical order if ties exist]
-        System.out.println("");
+        System.out.println("GetAthleteWithMostMedals " + mostMetals + bestAthleteString);
     }
 
     /*
@@ -260,5 +320,51 @@ public class HW3
     public static void getSportAndEventByAthlete(TreeNode root, String athlete) {
         // GetSportAndEventByAthlete athlete sport1: event1 ... in alphabetical order [none]
         System.out.println("");
+    }
+
+    /*
+     * Finds the lexicographically correct index for an item to be inserted using a binary search iteratively
+     */
+    public static int binaryIndexSearch(ArrayList<String> array, String tgt) {
+        // High var for binary search (aka right)
+        int hi = array.size() - 1;
+
+        // Ensure list is not empty
+        if (hi == -1) {
+            return 0;
+        }
+
+        // Low var for binary search (aka left)
+        int lo = 0;
+
+        // Mid var for binary search (aka pivot)
+        int mid_int = 0;
+
+        // Search through the list using binary search iteratively to find where to insert the element
+        while (lo <= hi) {
+            // Calculate mid/pivot
+            mid_int = lo + (hi-lo) / 2;
+
+            // Compare mid to tgt
+            int mid_comp = array.get(mid_int).compareTo(tgt);
+
+            // Check if target is at mid
+            if (mid_comp == 0) {
+                throw new IllegalStateException("Duplicate key");
+            }
+
+            // If target is greater, ignore left half
+            if (mid_comp > 0) {
+                lo = mid_int + 1;
+            }
+
+            // If target is smaller, ignore right half
+            if (mid_comp < 0) {
+                hi = mid_int - 1;
+            }
+        }
+
+        // Return where to place the item in the list
+        return mid_int;
     }
 }

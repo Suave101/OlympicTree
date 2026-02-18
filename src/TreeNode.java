@@ -171,10 +171,10 @@ public class TreeNode {
      */
     public static int binaryIndexSearch(ArrayList<TreeNode> array, String tgt) {
         // High var for binary search (aka right)
-        int hi = array.size();
+        int hi = array.size() - 1;
 
         // Ensure list is not empty
-        if (hi == 0) {
+        if (hi == -1) {
             return 0;
         }
 
@@ -220,4 +220,10 @@ public class TreeNode {
         assert this.depth < 4;
         assert this.depth > -1;
     }
+
+    @Override
+    public String toString() {
+        return this.data;
+    }
 }
+
