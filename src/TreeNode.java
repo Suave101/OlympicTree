@@ -38,6 +38,7 @@ public class TreeNode {
         // Set the depth if there is a parent node
         if (this.parent != null) {
             this.depth = parent.depth + 1;
+            assertDepth();
         }
         if (this.children == null) {
             this.children = new ArrayList<>();
@@ -45,17 +46,55 @@ public class TreeNode {
     }
 
     /*
-     * Adds a child to this node (addition wise)
+     * Based off of the node depth, selects append or insert for the Olympic tree
      */
-    public void appendChild(TreeNode childNode) {
+    public void addChild(TreeNode childNode) {
+        // Ensure that the depth is within bounds
+        childNode.assertDepth();
+
+        // Select insert or append based on node rank/depth
+        switch (childNode.depth) {
+            case 0, 1, 2:
+                // Insert Date, Sports, and Events
+                insertChild(childNode);
+                break;
+            case 3:
+                // Append Winners
+                appendChild(childNode);
+                break;
+            default:
+                // Throw error if any other number is inputted
+                throw new IllegalStateException("Only depths of 0, 1, 2, and 3 should exist! You have a depth of " + childNode.depth);
+        }
+    }
+
+    /*
+     * Gets a child by name
+     */
+    public TreeNode getChildByName(String name) {
+        // Iterate through list to find the child
+        for (TreeNode child: children) {
+            // If it is the child return it
+            if (child.data.equals(name)) {
+                return child;
+            }
+        }
+        // If the child does not exist, return null
+        return null;
+    }
+
+    /*
+     * Adds a child to this node (place wise)
+     */
+    private void appendChild(TreeNode childNode) {
         this.children.add(childNode);
     }
 
     /*
      * Adds a child to this node (alphabetically)
      */
-    public void insertChild(TreeNode childNode) {
-        this.children.addFirst(childNode);
+    private void insertChild(TreeNode childNode) {
+        this.children.add(binaryIndexSearch(this.children, childNode.data), childNode);
     }
 
     /*
@@ -99,6 +138,8 @@ public class TreeNode {
     public void setParent(TreeNode parent) {
         this.parent = parent;
         this.depth = parent.depth + 1;
+        // Ensure that depth is valid
+        assertDepth();
     }
 
     /*
@@ -116,5 +157,67 @@ public class TreeNode {
         for (TreeNode child: this.getChildren()) {
             child.printTree();
         }
+    }
+
+    /*
+     * Compares the string values of the node for the binaryIndexSearch function
+     */
+    private int compareTo(String str) {
+        return this.data.compareTo(str);
+    }
+
+    /*
+     * Finds the lexicographically correct index for an item to be inserted using a binary search iteratively
+     */
+    public static int binaryIndexSearch(ArrayList<TreeNode> array, String tgt) {
+        // High var for binary search (aka right)
+        int hi = array.size();
+
+        // Ensure list is not empty
+        if (hi == 0) {
+            return 0;
+        }
+
+        // Low var for binary search (aka left)
+        int lo = 0;
+
+        // Mid var for binary search (aka pivot)
+        int mid_int = 0;
+
+        // Search through the list using binary search iteratively to find where to insert the element
+        while (lo <= hi) {
+            // Calculate mid/pivot
+            mid_int = lo + (hi-lo) / 2;
+
+            // Compare mid to tgt
+            int mid_comp = array.get(mid_int).compareTo(tgt);
+
+            // Check if target is at mid
+            if (mid_comp == 0) {
+                throw new IllegalStateException("Duplicate key");
+            }
+
+            // If target is greater, ignore left half
+            if (mid_comp > 0) {
+                lo = mid_int + 1;
+            }
+
+            // If target is smaller, ignore right half
+            if (mid_comp < 0) {
+                hi = mid_int - 1;
+            }
+        }
+
+        // Return where to place the item in the list
+        return mid_int;
+    }
+
+    /*
+     * Assertation method that ensure depth is within depth bounds [0, 1, ..., 3]
+     */
+    private void assertDepth() {
+        // Ensure that the depth is within bounds
+        assert this.depth < 4;
+        assert this.depth > -1;
     }
 }
