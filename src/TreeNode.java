@@ -53,18 +53,12 @@ public class TreeNode {
         childNode.assertDepth();
 
         // Select insert or append based on node rank/depth
-        switch (childNode.depth) {
-            case 0, 1, 2:
-                // Insert Date, Sports, and Events
-                insertChild(childNode);
-                break;
-            case 3:
-                // Append Winners
-                appendChild(childNode);
-                break;
-            default:
-                // Throw error if any other number is inputted
-                throw new IllegalStateException("Only depths of 0, 1, 2, and 3 should exist! You have a depth of " + childNode.depth);
+        if (childNode.depth < 3) {
+            // Insert Date, Sports, and Events
+            insertChild(childNode);
+        } else {
+            // Append Winners
+            appendChild(childNode);
         }
     }
 
