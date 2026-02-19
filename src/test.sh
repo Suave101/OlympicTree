@@ -15,16 +15,16 @@ for i in 1 2; do
     echo "Running Test Case $i..."
     echo "---------------------------"
 
-    java HW3 hw3in${i}data.txt hw2in${i}queries.txt > my_output$i.txt
+    java HW3 hw3in${i}data.txt hw3in${i}queries.txt > my_output$i.txt
 
     # Compare the output with the expected output
-    diff my_output$i.txt hw2out$i.txt > diff_result.txt
+    diff my_output$i.txt hw3out$i.txt > diff_result.txt
 
     if [ $? -eq 0 ]; then
         echo "TEST $i: PASSED! ✅"
     else
         echo "TEST $i: FAILED! ❌"
-        echo "Differences found between my_output$i.txt and hw2out$i.txt:"
+        echo "Differences found between my_output$i.txt and hw3out$i.txt:"
         cat diff_result.txt
     fi
 done

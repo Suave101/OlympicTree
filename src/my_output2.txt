@@ -1,0 +1,8 @@
+GetEventsBySport Canoe_Slalom Womens_Kayak_Single Womens_Canoe_Single Mens_Canoe_Sinle
+GetWinnersAndCountriesBySportAndEvent Artistic_Gymnastics Womens_Uneven_Bars Kaylia_Nemour: Algeria Qiyuan_Qiu: China Sunisa_Lee: USA
+GetGoldMedalistAndCountryBySportAndEvent Swimming Mens_200m_BreaststrokeLeon_Marchand: France
+GetAthleteWithMostMedals 3 Rebeca_Andrade Leon_Marchand Simone_Biles
+
+
+
+
