@@ -15,7 +15,7 @@ for i in 1 2; do
     echo "Running Test Case $i..."
     echo "---------------------------"
 
-    java HW3 hw3in$idata.txt hw2in$iqueries.txt > my_output$i.txt
+    java HW3 hw3in${i}data.txt hw2in${i}queries.txt > my_output$i.txt
 
     # Compare the output with the expected output
     diff my_output$i.txt hw2out$i.txt > diff_result.txt

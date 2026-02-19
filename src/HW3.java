@@ -16,9 +16,9 @@ public class HW3
 {
     public static void main(String[] args) throws FileNotFoundException {
         // Parses the file input and saves the pointer to the root node
-        TreeNode root = parseInputFile("C:\\Users\\Alexander Doyle\\IdeaProjects\\OlympicTree\\src\\hw3in2data.txt");
+        TreeNode root = parseInputFile(args[0]);
 
-        parseAndHandleQueryFile("C:\\Users\\Alexander Doyle\\IdeaProjects\\OlympicTree\\src\\hw3in2queries.txt", root);
+        parseAndHandleQueryFile(args[1], root);
     }
 
     /**
