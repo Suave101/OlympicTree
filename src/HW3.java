@@ -34,9 +34,6 @@ public class HW3
         // Current parent node for each line
         TreeNode parentNode;
 
-        // Map of nodes so we can find parents
-        Map<String,TreeNode> nodes = new HashMap<>();
-
         try (Scanner fileScanner = new Scanner(inputFile)) {
 
             // Loop through each line of the file
