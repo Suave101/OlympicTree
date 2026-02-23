@@ -83,8 +83,10 @@ public class HW3
                             // Add child node to parent
                             parentNode.addChild(child);
 
-                            // Add child node to the map
-                            curNodes.add(child);
+                            // Add child node to the cur list
+                            if (child.getDepth() > 3) {
+                                curNodes.add(child);
+                            }
                         }
                         // Clear the parent nodes
                         parentNodes.clear();
