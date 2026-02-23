@@ -101,7 +101,7 @@ public class TreeNode {
     /*
      * Getter method for TreeNode Children
      */
-    public List<TreeNode> getChildren() {
+    public ArrayList<TreeNode> getChildren() {
         return this.children;
     }
 

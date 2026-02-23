@@ -10,15 +10,20 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class HW3
 {
     public static void main(String[] args) throws FileNotFoundException {
-        // Parses the file input and saves the pointer to the root node
-        TreeNode root = parseInputFile(args[0]);
-
-        parseAndHandleQueryFile(args[1], root);
+//        // Parses the file input and saves the pointer to the root node
+//        TreeNode root = parseInputFile(args[0]);
+//
+//        parseAndHandleQueryFile(args[1], root);
+        // Debuggin
+        TreeNode root = parseInputFile("C:\\Users\\Alexander Doyle\\IdeaProjects\\OlympicTree\\src\\hw3in2data.txt");
+        parseAndHandleQueryFile("C:\\Users\\Alexander Doyle\\IdeaProjects\\OlympicTree\\src\\hw3in2queries.txt", root);
+        // TODO: UNDEBUG SCRIPT
     }
 
     /**
@@ -29,49 +34,67 @@ public class HW3
         File inputFile = new File(inFile);
 
         // The root node of the tree we are parsing
-        TreeNode root = null;
+        TreeNode root;
 
         // Current parent node for each line
-        TreeNode parentNode = new TreeNode(null, null, null);
+        TreeNode parentNode = null;
 
-        // Previous branch nodes for easy placing
-        ArrayList<TreeNode> parentNodes = new ArrayList<>();
+        // Current branch nodes to be parents
+        ArrayList<TreeNode> curNodes = new ArrayList<>();
 
         try (Scanner fileScanner = new Scanner(inputFile)) {
+            // --- Handle root node ---
 
-            // Loop through each line of the file
+            // Get root line in file and parse it into
+            ArrayList<String> rootList = new ArrayList<>(Arrays.asList(fileScanner.nextLine().split(" ")));
+
+            // Create root node
+            root = new TreeNode(null, rootList.getFirst(), new ArrayList<>());
+
+            // Remove first node (root) from the rootList
+            rootList.removeFirst();
+
+            // Add children (sports) to root
+            for (String rootChild: rootList) {
+                root.addChild(new TreeNode(root, rootChild, null));
+            }
+
+            ArrayList<TreeNode> parentNodes = new ArrayList<>(root.getChildren());
+
+            // Loop through each line of the file after the root line
             while (fileScanner.hasNextLine()) {
                 // Get next line in file
                 String line = fileScanner.nextLine();
 
                 try (Scanner lineScanner = new Scanner(line)) {
                     if (lineScanner.hasNext()) {
-                        // Create new parent nodes
-                        ArrayList<TreeNode> curNodes = new ArrayList<>();
-
                         // First token is a parent
                         String parentName = lineScanner.next();
 
-                        // The string in the file is the root
-                        if (root == null) {
-                            // Create root node
-                            root = new TreeNode(null, parentName, null);
+                        // Find the parent node in the parent nodes
+                        for (TreeNode node: parentNodes) {
+                            if (node.getData().equals(parentName)) {
+                                parentNode = node;
+                                break;
+                            }
+                        }
 
-                            // Name root node as current parent
-                            parentNode = root;
+                        // Check if the depth has changed
+                        if (parentNode == null) {
+                            // Clear old parents, Add nodes to be parent nodes, and Clear old cur nodes
+                            parentNodes.clear();
+                            parentNodes.addAll(curNodes);
+                            curNodes.clear();
 
-                            // Add root node to the map of nodes
-                            curNodes.add(root);
-                        } else {
-                            // Get the current parent from the tree
+                            // Get the parent node from the next layer
                             for (TreeNode node: parentNodes) {
                                 if (node.getData().equals(parentName)) {
                                     parentNode = node;
                                     break;
                                 }
                             }
-                            if (parentNode.getData() == null) {
-                                throw new Error("All parents must exist");
+                            if (parentNode == null) {
+                                throw new IllegalStateException("Parent " + parentName + " does not exist!");
                             }
                         }
 
@@ -82,17 +105,12 @@ public class HW3
 
                             // Add child node to parent
                             parentNode.addChild(child);
-
-                            // Add child node to the cur list
-                            if (child.getDepth() > 3) {
-                                curNodes.add(child);
-                            }
                         }
-                        // Clear the parent nodes
-                        parentNodes.clear();
+                        // Add nodes to be parent nodes
+                        curNodes.addAll(parentNode.getChildren());
 
-                        // Set parent nodes to cur nodes
-                        parentNodes = curNodes;
+                        // Empty the parent node
+                        parentNode = null;
                     }
                 }
 
@@ -181,6 +199,8 @@ public class HW3
      */
     public static void getEventsBySport(TreeNode root, String sport) {
         // Get the event nodes
+        System.out.println(sport);
+        System.out.println(root.getChildren());
         List<TreeNode> eventNodes = root.getChildByName(sport).getChildren();
 
         // Create a string to store the events
