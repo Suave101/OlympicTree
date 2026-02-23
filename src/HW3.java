@@ -32,7 +32,10 @@ public class HW3
         TreeNode root = null;
 
         // Current parent node for each line
-        TreeNode parentNode;
+        TreeNode parentNode = new TreeNode(null, null, null);
+
+        // Previous branch nodes for easy placing
+        ArrayList<TreeNode> parentNodes = new ArrayList<>();
 
         try (Scanner fileScanner = new Scanner(inputFile)) {
 
@@ -43,6 +46,9 @@ public class HW3
 
                 try (Scanner lineScanner = new Scanner(line)) {
                     if (lineScanner.hasNext()) {
+                        // Create new parent nodes
+                        ArrayList<TreeNode> curNodes = new ArrayList<>();
+
                         // First token is a parent
                         String parentName = lineScanner.next();
 
@@ -55,10 +61,18 @@ public class HW3
                             parentNode = root;
 
                             // Add root node to the map of nodes
-                            nodes.put(parentName, root);
+                            curNodes.add(root);
                         } else {
                             // Get the current parent from the tree
-                            parentNode = nodes.get(parentName);
+                            for (TreeNode node: parentNodes) {
+                                if (node.getData().equals(parentName)) {
+                                    parentNode = node;
+                                    break;
+                                }
+                            }
+                            if (parentNode.getData() == null) {
+                                throw new Error("All parents must exist");
+                            }
                         }
 
                         // Iterate through each entry in line and add them as children to the current parent node
@@ -70,8 +84,13 @@ public class HW3
                             parentNode.addChild(child);
 
                             // Add child node to the map
-                            nodes.put(child.getData(), child);
+                            curNodes.add(child);
                         }
+                        // Clear the parent nodes
+                        parentNodes.clear();
+
+                        // Set parent nodes to cur nodes
+                        parentNodes = curNodes;
                     }
                 }
 
