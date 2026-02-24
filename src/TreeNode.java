@@ -184,20 +184,20 @@ public class TreeNode {
             mid_int = lo + (hi-lo) / 2;
 
             // Compare mid to tgt
-            int mid_comp = array.get(mid_int).compareTo(tgt);
+            int mid_comp = -array.get(mid_int).compareTo(tgt);
 
             // Check if target is at mid
             if (mid_comp == 0) {
                 throw new IllegalStateException("Duplicate key");
             }
 
-            // If target is smaller, ignore left half
-            if (mid_comp < 0) {
+            // If target is greater, ignore left half
+            if (mid_comp > 0) {
                 lo = mid_int + 1;
             }
 
-            // If target is greater, ignore right half
-            if (mid_comp > 0) {
+            // If target is smaller, ignore right half
+            if (mid_comp < 0) {
                 hi = mid_int - 1;
             }
         }
