@@ -221,11 +221,8 @@ public class HW3
 
         // Iterate through athlete nodes and add them to the string
         for (TreeNode athlete: athleteNodes) {
-            // Split the string at the colon
-            String[] athleteCountryPair = athlete.getData().split(":");
-
             // Concat the string such that it matches the output requirement conventions :)
-            athleteString = athleteString + " " + athleteCountryPair[0] + ": " + athleteCountryPair[1];
+            athleteString = athleteString + " " + athlete.getData();
         }
 
         // Prints the winners and countries by sport and event
