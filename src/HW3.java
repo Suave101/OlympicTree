@@ -258,7 +258,7 @@ public class HW3
      */
     public static void getAthleteWithMostGoldMedals(TreeNode root) {
         // Print athlete with most gold metals
-        System.out.println("GetAthleteWithMostMedals " + getMostNMetals(root, CountBy.GOLDEN, Count.ATHLETES));
+        System.out.println("GetAthleteWithMostGoldMedals " + getMostNMetals(root, CountBy.GOLDEN, Count.ATHLETES));
     }
 
     /*
