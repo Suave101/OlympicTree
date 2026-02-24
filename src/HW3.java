@@ -45,7 +45,7 @@ public class HW3
             ArrayList<String> rootList = new ArrayList<>(Arrays.asList(fileScanner.nextLine().split(" ")));
 
             // Create root node
-            root = new TreeNode(null, rootList.getFirst(), new ArrayList<>());
+            root = new TreeNode(null, rootList.get(0), new ArrayList<>());
 
             // Remove first node (root) from the rootList
             rootList.removeFirst();
@@ -331,10 +331,10 @@ public class HW3
                     // If By gold metals, only get the first place of the event
                     if (count == Count.ATHLETES) {
                         // If by athlete, add the entire string
-                        countByNames.add(event.getChildren().getFirst().getData());
+                        countByNames.add(event.getChildren().get(0).getData());
                     } else if (count == Count.COUNTRIES) {
                         // If by countries, only add the country
-                        countByNames.add(event.getChildren().getFirst().getData().split(":")[1]);
+                        countByNames.add(event.getChildren().get(0).getData().split(":")[1]);
                     }
                 } else if (countBy == CountBy.TOTAL) {
                     // If By total metals, iterate through all winners
