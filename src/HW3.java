@@ -15,20 +15,17 @@ import java.util.*;
 public class HW3
 {
     public static void main(String[] args) throws FileNotFoundException {
-//        // Parses the file input and saves the pointer to the root node
-//        TreeNode root = parseInputFile(args[0]);
-//
-//        parseAndHandleQueryFile(args[1], root);
-        // Debuggin
-        TreeNode root = parseInputFile("C:\\Users\\Alexander Doyle\\IdeaProjects\\OlympicTree\\src\\hw3in2data.txt");
-        parseAndHandleQueryFile("C:\\Users\\Alexander Doyle\\IdeaProjects\\OlympicTree\\src\\hw3in2queries.txt", root);
-        // TODO: UNDEBUG SCRIPT
+        // Parses the file input and saves the pointer to the root node
+        Tree tree = parseInputFile(args[0]);
+
+        // Parses the query file and handles each query
+        parseAndHandleQueryFile(args[1], tree.getRoot());
     }
 
     /**
      * Parses the input file and adds entries to the tree
      */
-    public static TreeNode parseInputFile(String inFile) throws FileNotFoundException {
+    public static Tree parseInputFile(String inFile) throws FileNotFoundException {
         // The input file object that allows for access of the input file
         File inputFile = new File(inFile);
 
@@ -115,7 +112,7 @@ public class HW3
 
             }
         }
-        return root;
+        return new Tree(root);
     }
 
     /**
@@ -263,42 +260,66 @@ public class HW3
      * Method that prints the athlete with the most metals
      */
     public static void getAthleteWithMostMedals(TreeNode root) {
-        getMostNMetals(root, CountBy.TOTAL, Count.ATHLETES);
+        // Print athlete with most metals
+        System.out.println("GetAthleteWithMostMedals " + getMostNMetals(root, CountBy.TOTAL, Count.ATHLETES));
     }
 
     /*
      * Method that prints the athlete with the most gold metals
      */
     public static void getAthleteWithMostGoldMedals(TreeNode root) {
-        getMostNMetals(root, CountBy.GOLDEN, Count.ATHLETES);
+        // Print athlete with most gold metals
+        System.out.println("GetAthleteWithMostMedals " + getMostNMetals(root, CountBy.GOLDEN, Count.ATHLETES));
     }
 
     /*
      * Method that prints the country with the most metals
      */
     public static void getCountryWithMostMedals(TreeNode root) {
-        getMostNMetals(root, CountBy.TOTAL, Count.COUNTRIES);
+        System.out.println("GetCountryWithMostMedals " + getMostNMetals(root, CountBy.TOTAL, Count.COUNTRIES));
     }
 
     /*
      * Method that prints the country with the most gold metals
      */
     public static void getCountryWithMostGoldMedals(TreeNode root) {
-        getMostNMetals(root, CountBy.GOLDEN, Count.COUNTRIES);
+        System.out.println("GetCountryWithMostGoldMedals " + getMostNMetals(root, CountBy.GOLDEN, Count.COUNTRIES));
     }
 
     /*
      * Method that prints the sport and event of an athlete
      */
     public static void getSportAndEventByAthlete(TreeNode root, String athlete) {
-        // GetSportAndEventByAthlete athlete sport1: event1 ... in alphabetical order [none]
-        System.out.println("");
+        // Create a list to store all names
+        ArrayList<String> sportAndEventStrings = new ArrayList<>();
+
+        // Get all athlete level child TreeNodes and add them to the list of name occurrences
+        for (TreeNode sport: root.getChildren()) {
+            for (TreeNode event: sport.getChildren()) {
+                for (TreeNode athleteNode: event.getChildren()) {
+                    if (athleteNode.getData().split(":")[0].equals(athlete)) {
+                        sportAndEventStrings.add(sport.getData() + ": " + event.getData());
+                    }
+                }
+            }
+        }
+
+        // Sort lexicographically
+        Collections.sort(sportAndEventStrings);
+
+        String sportAndEventString = "";
+
+        for (String sportAndEvent : sportAndEventStrings) {
+            sportAndEventString = sportAndEventString + sportAndEvent;
+        }
+
+        System.out.println("GetSportAndEventByAthlete " + sportAndEventString);
     }
 
     /*
      * Print the most (total or gold) metals per (athlete or country) depending on args
      */
-    public static void getMostNMetals(TreeNode root, CountBy countBy, Count count) {
+    public static String getMostNMetals(TreeNode root, CountBy countBy, Count count) {
         // Create a list to store all names
         ArrayList<String> countByNames = new ArrayList<>();
 
@@ -395,7 +416,7 @@ public class HW3
         }
 
         // GetAthleteWithMostMedals numberOfMedals athlete [athlete2 ... in alphabetical order if ties exist]
-        System.out.println("GetAthleteWithMostMedals " + mostMetals + bestNameString);
+        return mostMetals + bestNameString;
     }
 
     enum CountBy {
