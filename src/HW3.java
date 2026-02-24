@@ -241,7 +241,7 @@ public class HW3
         TreeNode eventNode = sportNode.getChildByName(event);
 
         // Print the output
-        System.out.println("GetGoldMedalistAndCountryBySportAndEvent " + sport + " " + event + eventNode.getChildren().get(0).getData());
+        System.out.println("GetGoldMedalistAndCountryBySportAndEvent " + sport + " " + event + " " + eventNode.getChildren().get(0).getData());
         // GetGoldMedalistAndCountryBySportAndEvent sport event athlete: country
     }
 
