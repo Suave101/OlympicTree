@@ -191,13 +191,13 @@ public class TreeNode {
                 throw new IllegalStateException("Duplicate key");
             }
 
-            // If target is greater, ignore left half
-            if (mid_comp > 0) {
+            // If target is smaller, ignore left half
+            if (mid_comp < 0) {
                 lo = mid_int + 1;
             }
 
-            // If target is smaller, ignore right half
-            if (mid_comp < 0) {
+            // If target is greater, ignore right half
+            if (mid_comp > 0) {
                 hi = mid_int - 1;
             }
         }
