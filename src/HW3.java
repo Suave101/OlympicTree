@@ -287,7 +287,7 @@ public class HW3
             for (TreeNode event: sport.getChildren()) {
                 for (TreeNode athleteNode: event.getChildren()) {
                     if (athleteNode.getData().split(":")[0].equals(athlete)) {
-                        sportAndEventStrings.add(sport.getData() + ": " + event.getData());
+                        sportAndEventStrings.add(sport.getData() + ":" + event.getData());
                     }
                 }
             }
