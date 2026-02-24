@@ -1,6 +1,0 @@
-GetEventsBySport Archery Womens_individual Mens_individual
-GetEventsBySport Rowing Womens_single_sculls Mens_single_sculls
-GetWinnersAndCountriesBySportAndEvent Archery Mens_individual Woojin_Kim: Korea Brady_Ellison: USA Wooseok_Lee: Korea
-GetWinnersAndCountriesBySportAndEvent Rowing Womens_single_sculls Karolien_Florijn: Netherlands Emma_Twigg: New_Zealand Viktorija_Senkute: Lithuania
-GetGoldMedalistAndCountryBySportAndEvent Archery Womens_individualSihyeon_Lim: Korea
-GetGoldMedalistAndCountryBySportAndEvent Rowing Mens_single_scullsOliver_Zeidler: Germany
