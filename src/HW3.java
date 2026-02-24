@@ -302,7 +302,7 @@ public class HW3
             sportAndEventString = sportAndEventString + sportAndEvent;
         }
 
-        System.out.println("GetSportAndEventByAthlete " + sportAndEventString);
+        System.out.println("GetSportAndEventByAthlete " + athlete + " " + sportAndEventString);
     }
 
     /*
