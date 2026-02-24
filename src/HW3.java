@@ -263,94 +263,28 @@ public class HW3
      * Method that prints the athlete with the most metals
      */
     public static void getAthleteWithMostMedals(TreeNode root) {
-
+        getMostNMetals(root, CountBy.TOTAL, Count.ATHLETES);
     }
 
     /*
      * Method that prints the athlete with the most gold metals
      */
     public static void getAthleteWithMostGoldMedals(TreeNode root) {
-        // Create a list to store all
-        ArrayList<String> goldenAthletes = new ArrayList<>();
-
-        // Get all athlete nodes and map them to the number of times they occur
-        for (TreeNode sport: root.getChildren()) {
-            for (TreeNode event: sport.getChildren()) {
-                // Get athlete (first child of the event) and add them to athletes list
-                goldenAthletes.add(event.getChildren().getFirst().getData());
-            }
-        }
-
-        // Ensure that there are athletes
-        if (goldenAthletes.isEmpty()) {
-            throw new IllegalStateException("There must exist athletes.");
-        }
-
-        // Sort the names alphabetically (lexicographically), grouping names for span calculation
-        Collections.sort(goldenAthletes);
-
-        // Find the best athletes using a span calculation
-        int mostGoldMetals = 0;
-        ArrayList<String> bestAthletes = new ArrayList<>();
-
-        int curCount = 0;
-        for (int i = 0; i < goldenAthletes.size(); i++) {
-            // Increment for gold metal
-            curCount++;
-
-            // Get athlete
-            String athlete = goldenAthletes.get(i);
-
-            // Check if the streak ends in the next item
-            // It ends the streak if its the last item or the next item is different
-            if ((i == goldenAthletes.size() - 1) || !athlete.equals(goldenAthletes.get(i + 1))) {
-                if (curCount > mostGoldMetals) {
-                    // If athlete better than current record
-                    // Set the new record
-                    mostGoldMetals = curCount;
-                    // remove all other athletes from the best
-                    bestAthletes.clear();
-                    // add the cur best athlete
-                    bestAthletes.add(athlete);
-                } else if (curCount == mostGoldMetals) {
-                    // If it is a tie, add the athlete to the tie
-                    bestAthletes.add(athlete);
-                }
-                // Reset for the new person
-                curCount = 0;
-            }
-        }
-
-        // String to store the athlete and country list
-        String bestAthleteString = "";
-
-        // Iterate through athletes and add them to the string
-        for (String athlete: bestAthletes) {
-            // Split the string at the colon
-            String[] athleteCountryPair = athlete.split(":");
-
-            // Concat the string such that it matches the output requirement conventions :)
-            bestAthleteString = bestAthleteString + " " + athleteCountryPair[0];
-        }
-
-        // GetAthleteWithMostMedals numberOfMedals athlete [athlete2 ... in alphabetical order if ties exist]
-        System.out.println("GetAthleteWithMostMedals " + mostGoldMetals + bestAthleteString);
+        getMostNMetals(root, CountBy.GOLDEN, Count.ATHLETES);
     }
 
     /*
      * Method that prints the country with the most metals
      */
     public static void getCountryWithMostMedals(TreeNode root) {
-        // GetCountryWithMostMedals numberOfMedals country [country2 ... in alphabetical order if ties exist]
-        System.out.println("");
+        getMostNMetals(root, CountBy.TOTAL, Count.COUNTRIES);
     }
 
     /*
      * Method that prints the country with the most gold metals
      */
     public static void getCountryWithMostGoldMedals(TreeNode root) {
-        // GetCountryWithMostGoldMedals numberOfGoldMedals country [country2 ... in alphabetical order if ties exist]
-        System.out.println("");
+        getMostNMetals(root, CountBy.GOLDEN, Count.COUNTRIES);
     }
 
     /*
@@ -362,48 +296,115 @@ public class HW3
     }
 
     /*
-     * Finds the lexicographically correct index for an item to be inserted using a binary search iteratively
+     * Print the most (total or gold) metals per (athlete or country) depending on args
      */
-    public static int binaryIndexSearch(ArrayList<String> array, String tgt) {
-        // High var for binary search (aka right)
-        int hi = array.size() - 1;
+    public static void getMostNMetals(TreeNode root, CountBy countBy, Count count) {
+        // Create a list to store all names
+        ArrayList<String> countByNames = new ArrayList<>();
 
-        // Ensure list is not empty
-        if (hi == -1) {
-            return 0;
-        }
-
-        // Low var for binary search (aka left)
-        int lo = 0;
-
-        // Mid var for binary search (aka pivot)
-        int mid_int = 0;
-
-        // Search through the list using binary search iteratively to find where to insert the element
-        while (lo <= hi) {
-            // Calculate mid/pivot
-            mid_int = lo + (hi-lo) / 2;
-
-            // Compare mid to tgt
-            int mid_comp = array.get(mid_int).compareTo(tgt);
-
-            // Check if target is at mid
-            if (mid_comp == 0) {
-                throw new IllegalStateException("Duplicate key");
-            }
-
-            // If target is greater, ignore left half
-            if (mid_comp > 0) {
-                lo = mid_int + 1;
-            }
-
-            // If target is smaller, ignore right half
-            if (mid_comp < 0) {
-                hi = mid_int - 1;
+        // Get all athlete level child TreeNodes and add them to the list of name occurrences
+        for (TreeNode sport: root.getChildren()) {
+            for (TreeNode event: sport.getChildren()) {
+                // Get objects and add them to athletes list
+                if (countBy == CountBy.GOLDEN) {
+                    // If By gold metals, only get the first place of the event
+                    if (count == Count.ATHLETES) {
+                        // If by athlete, add the entire string
+                        countByNames.add(event.getChildren().getFirst().getData());
+                    } else if (count == Count.COUNTRIES) {
+                        // If by countries, only add the country
+                        countByNames.add(event.getChildren().getFirst().getData().split(":")[1]);
+                    }
+                } else if (countBy == CountBy.TOTAL) {
+                    // If By total metals, iterate through all winners
+                    // Store event children temporarily to iterate through
+                    ArrayList<TreeNode> eventChildren = event.getChildren();
+                    // Iterate through the children and add their data
+                    for (TreeNode child : eventChildren) {
+                        if (count == Count.COUNTRIES) {
+                            // If counting by countries, only add the country
+                            countByNames.add(child.getData().split(":")[1]);
+                        } else if (count == Count.ATHLETES) {
+                            // If counting by athlete, add the entire string
+                            countByNames.add(child.getData());
+                        }
+                    }
+                }
             }
         }
 
-        // Return where to place the item in the list
-        return mid_int;
+        // Ensure that there are objects
+        if (countByNames.isEmpty()) {
+            throw new IllegalStateException("There must exist children.");
+        }
+
+        // Sort the names alphabetically (lexicographically), grouping names for span calculation
+        Collections.sort(countByNames);
+
+        // Find the best athletes using a span calculation
+        int mostMetals = 0;
+        ArrayList<String> bestNames = new ArrayList<>();
+
+        int curCount = 0;
+        for (int i = 0; i < countByNames.size(); i++) {
+            // Increment for metal
+            curCount++;
+
+            // Get name
+            String name = countByNames.get(i);
+
+            // Check if the streak ends in the next item
+            // It ends the streak if its the last item or the next item is different
+            if ((i == countByNames.size() - 1) || !name.equals(countByNames.get(i + 1))) {
+                if (curCount > mostMetals) {
+                    // If name better than current record
+                    // Set the new record
+                    mostMetals = curCount;
+                    // remove all other athletes from the best
+                    bestNames.clear();
+                    // add the cur best name
+                    bestNames.add(name);
+                } else if (curCount == mostMetals) {
+                    // If it is a tie, add the name to the tie
+                    bestNames.add(name);
+                }
+                // Reset for the new name
+                curCount = 0;
+            }
+        }
+
+        // String to store the athlete and country list
+        String bestNameString = "";
+
+        // Iterate through athletes and add them to the string
+        for (String name: bestNames) {
+            if (count == Count.ATHLETES) {
+                // If we are counting athletes, then we must parse the names into the correct
+                // printing convention
+
+                // Split the string at the colon
+                String[] athleteCountryPair = name.split(":");
+
+                // Concat the string such that it matches the output requirement conventions :)
+                bestNameString = bestNameString + " " + athleteCountryPair[0];
+            } else {
+                // Else it is by country so just add the country
+                // Concat the string such that it matches the output requirement conventions :)
+                bestNameString = bestNameString + " " + name;
+            }
+        }
+
+        // GetAthleteWithMostMedals numberOfMedals athlete [athlete2 ... in alphabetical order if ties exist]
+        System.out.println("GetAthleteWithMostMedals " + mostMetals + bestNameString);
+    }
+
+    enum CountBy {
+        GOLDEN,
+        TOTAL
+    }
+
+    enum Count {
+        COUNTRIES,
+        ATHLETES
     }
 }
