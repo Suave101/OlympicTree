@@ -7,6 +7,7 @@
   Description of this file: A class for tree nodes that have children and a parent
 
  */
+
 import java.util.ArrayList;
 
 /*
