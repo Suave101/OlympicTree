@@ -195,8 +195,6 @@ public class HW3
      */
     public static void getEventsBySport(TreeNode root, String sport) {
         // Get the event nodes
-        System.out.println(sport);
-        System.out.println(root.getChildren());
         List<TreeNode> eventNodes = root.getChildByName(sport).getChildren();
 
         // Create a string to store the events
