@@ -48,7 +48,7 @@ public class HW3
             root = new TreeNode(null, rootList.get(0), new ArrayList<>());
 
             // Remove first node (root) from the rootList
-            rootList.removeFirst();
+            rootList.remove(0);
 
             // Add children (sports) to root
             for (String rootChild: rootList) {
