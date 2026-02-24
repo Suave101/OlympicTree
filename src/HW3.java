@@ -240,14 +240,8 @@ public class HW3
         // Get event node
         TreeNode eventNode = sportNode.getChildByName(event);
 
-        // Get the gold medalist name and country and split it for concatenation
-        String[] goldMedalistAthleteCountryPair = eventNode.getChildren().get(0).getData().split(":");
-
-        // Concat the string the correct way
-        String goldMedalist = goldMedalistAthleteCountryPair[0] + ": " + goldMedalistAthleteCountryPair[1];
-
         // Print the output
-        System.out.println("GetGoldMedalistAndCountryBySportAndEvent " + sport + " " + event + goldMedalist);
+        System.out.println("GetGoldMedalistAndCountryBySportAndEvent " + sport + " " + event + eventNode.getChildren().get(0).getData());
         // GetGoldMedalistAndCountryBySportAndEvent sport event athlete: country
     }
 
