@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 2. Run tests
-for i in 1 2 3 4; do
+for i in 1 2 3 4 5; do
     echo "---------------------------"
     echo "Running Test Case $i..."
     echo "---------------------------"
@@ -27,4 +27,6 @@ for i in 1 2 3 4; do
         echo "Differences found between my_output$i.txt and hw3out$i.txt:"
         cat diff_result.txt
     fi
+    echo "---------------------------"
+    echo ""
 done

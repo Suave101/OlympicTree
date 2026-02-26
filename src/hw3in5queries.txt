@@ -1,0 +1,4 @@
+GetEventsBySport Swimming
+GetEventsBySport Athletics
+GetAthleteWithMostMedals
+GetCountryWithMostMedals

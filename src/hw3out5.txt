@@ -1,0 +1,4 @@
+GetEventsBySport Swimming Backstroke200m Freestyle100m
+GetEventsBySport Athletics Marathon Sprint100m
+1 Bekele Bolt Blake DeGrasse Green Kipchoge Lochte Murphy Phelps Sun Tola Xu
+2 USA
