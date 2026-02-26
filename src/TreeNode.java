@@ -154,13 +154,6 @@ public class TreeNode {
     }
 
     /*
-     * Compares the string values of the node for the binaryIndexSearch function
-     */
-    private int compareTo(String str) {
-        return this.data.compareTo(str);
-    }
-
-    /*
      * Finds the lexicographically correct index for an item to be inserted using a binary search iteratively
      */
     public static int binaryIndexSearch(ArrayList<TreeNode> array, String tgt) {
@@ -175,29 +168,19 @@ public class TreeNode {
         // Low var for binary search (aka left)
         int lo = 0;
 
-        // Mid var for binary search (aka pivot)
-        int mid_int = 0;
-
         // Search through the list using binary search iteratively to find where to insert the element
         while (lo <= hi) {
             // Calculate mid/pivot
-            mid_int = lo + (hi-lo) / 2;
+            int mid_int = lo + (hi-lo) / 2;
 
             // Compare mid to tgt
-            int mid_comp = -array.get(mid_int).compareTo(tgt);
+            int mid_comp = array.get(mid_int).getData().compareTo(tgt);
 
-            // Check if target is at mid
-            if (mid_comp == 0) {
+            if (mid_comp == 0) { // Check if target is at mid
                 throw new IllegalStateException("Duplicate key");
-            }
-
-            // If target is greater, ignore left half
-            if (mid_comp > 0) {
+            } else if (mid_comp < 0) { // If element at mid is less than tgt, ignore left half
                 lo = mid_int + 1;
-            }
-
-            // If target is smaller, ignore right half
-            if (mid_comp < 0) {
+            } else { // If element at mid is bigger, ignore right half
                 hi = mid_int - 1;
             }
         }
