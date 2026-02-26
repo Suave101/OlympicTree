@@ -1,0 +1,8 @@
+GetAthleteWithMostMedals 2 Andrade Biles Phelps
+GetAthleteWithMostGoldMedals 2 Biles Phelps
+GetCountryWithMostMedals 6 USA
+GetCountryWithMostGoldMedals 4 USA
+GetSportAndEventByAthlete Biles Gymnastics:Floor Gymnastics:Vault
+GetSportAndEventByAthlete Phelps Swimming:100m_Free Swimming:50m_Free
+GetSportAndEventByAthlete Andrade Gymnastics:Floor Gymnastics:Vault
+GetSportAndEventByAthlete UnknownAthlete none
