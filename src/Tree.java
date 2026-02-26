@@ -1,3 +1,13 @@
+/*
+
+  Author: Alexander Doyle
+  Email: adoyle2025@my.fit.edu
+  Course: Data Structures and Algorithms
+  Section: Section E2
+  Description of this file: A tree class to store the root as required by the instruction file
+
+ */
+
 public class Tree {
     // A storage variable for the tree's root
     private TreeNode root;
