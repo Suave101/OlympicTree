@@ -1,0 +1,8 @@
+GetEventsBySport Apple_Picking Event_100m Event_10m
+GetEventsBySport Zebra_Racing Marathon Sprint
+GetWinnersAndCountriesBySportAndEvent Zebra_Racing Sprint Bob:Banana Charlie:Apple Zach:Zoo
+GetAthleteWithMostMedals 3 Adam Zach
+GetAthleteWithMostGoldMedals 1 Adam Bob Dave Zach
+GetCountryWithMostMedals 6 Apple
+GetCountryWithMostGoldMedals 1 Apple Banana Dog Zoo
+GetSportAndEventByAthlete Adam Apple_Picking:Event_100m Apple_Picking:Event_10m Zebra_Racing:Marathon

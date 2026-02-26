@@ -1,0 +1,8 @@
+GetEventsBySport Apple_Picking
+GetEventsBySport Zebra_Racing
+GetWinnersAndCountriesBySportAndEvent Zebra_Racing Sprint
+GetAthleteWithMostMedals
+GetAthleteWithMostGoldMedals
+GetCountryWithMostMedals
+GetCountryWithMostGoldMedals
+GetSportAndEventByAthlete Adam
