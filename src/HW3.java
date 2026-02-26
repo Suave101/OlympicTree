@@ -299,6 +299,10 @@ public class HW3
             sportAndEventString = sportAndEventString + " " + sportAndEvent;
         }
 
+        if (sportAndEventString.isEmpty()) {
+            sportAndEventString = " none";
+        }
+
         System.out.println("GetSportAndEventByAthlete " + athlete + sportAndEventString);
     }
 
