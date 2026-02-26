@@ -6,7 +6,7 @@
   Section: Section E2
   Description of this file: Creates a tree to make query to for the Olympics
 
- */
+*/
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -344,6 +344,9 @@ public class HW3
         if (countByNames.isEmpty()) {
             throw new IllegalStateException("There must exist children.");
         }
+
+        // Sort the list using the cool merge sort class that I implemented because I am awesome
+        MergeSort.mergeSort(countByNames);
 
         // Find the best athletes using a span calculation
         int mostMetals = 0;
