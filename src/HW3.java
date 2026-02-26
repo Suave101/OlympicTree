@@ -293,9 +293,6 @@ public class HW3
             }
         }
 
-        // Sort lexicographically
-        Collections.sort(sportAndEventStrings);
-
         String sportAndEventString = "";
 
         for (String sportAndEvent : sportAndEventStrings) {
@@ -347,9 +344,6 @@ public class HW3
         if (countByNames.isEmpty()) {
             throw new IllegalStateException("There must exist children.");
         }
-
-        // Sort the names alphabetically (lexicographically), grouping names for span calculation
-        Collections.sort(countByNames);
 
         // Find the best athletes using a span calculation
         int mostMetals = 0;
