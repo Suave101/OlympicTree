@@ -296,10 +296,10 @@ public class HW3
         String sportAndEventString = "";
 
         for (String sportAndEvent : sportAndEventStrings) {
-            sportAndEventString = sportAndEventString + sportAndEvent;
+            sportAndEventString = sportAndEventString + " " + sportAndEvent;
         }
 
-        System.out.println("GetSportAndEventByAthlete " + athlete + " " + sportAndEventString);
+        System.out.println("GetSportAndEventByAthlete " + athlete + sportAndEventString);
     }
 
     /*
