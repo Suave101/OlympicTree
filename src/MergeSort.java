@@ -1,14 +1,15 @@
-import java.util.ArrayList;
-
 /*
 
   Author: Alexander Doyle
   Email: adoyle2025@my.fit.edu
   Course: Data Structures and Algorithms
   Section: Section E2/E3
-  Description of this file: A class that stores the mergesort alg
+  Description of this file: A class that stores the mergesort algorithm
 
 */
+
+import java.util.ArrayList;
+
 public class MergeSort {
 
     /*
