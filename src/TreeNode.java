@@ -203,7 +203,7 @@ public class TreeNode {
         }
 
         // Return where to place the item in the list
-        return mid_int;
+        return lo;
     }
 
     /*
