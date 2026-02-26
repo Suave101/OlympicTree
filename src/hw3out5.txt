@@ -1,4 +1,4 @@
 GetEventsBySport Swimming Backstroke200m Freestyle100m
 GetEventsBySport Athletics Marathon Sprint100m
 GetAthleteWithMostMedals 1 Bekele Blake Bolt DeGrasse Green Kipchoge Lochte Murphy Phelps Sun Tola Xu
-GetCountryWithMostMedals 2 USA
+GetCountryWithMostMedals 3 USA
